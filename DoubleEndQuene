@@ -1,0 +1,71 @@
+class DoubleQuene :
+    """通过双向链表模拟双端队列"""
+    def __init__(self,__head =None,__tail = None):
+        self.__head = __head
+        self.__tail = __tail
+        self.__size = 10
+        self.__count = 0
+
+    class Node :
+        def __init__(self,elem,next = None,prev = None):
+            """
+            :param elem:队列结点的元素域
+            :param next: 队列结点的前指针域
+            :param prev: 队列结点的后指针域
+            """
+            self.elem = elem
+            self.next = next
+            self.prev = prev
+    def __is_empty(self):
+        """判断队列是否为空"""
+        return self.__count == 0
+    def __is_fill(self):
+        """判断队列是否已满"""
+        return self.__count == self.__size
+    def __edit(self,elem):
+        """队列为空时，添加头节点"""
+        node = self.Node(elem)
+        node.next = None
+        self.__head = node
+        self.__tail = node
+        self.__count += 1
+    def lenquene(self,elem):
+        """向队列左端添加结点"""
+        if not self.__is_fill() :
+            if self.__is_empty() :
+                return self.__edit(elem)
+            node = self.Node(elem)
+            node.next = self.__head
+            self.__head.prev = node
+            self.__head = node
+            self.__count += 1
+    def renquene(self,elem):
+        """向队列右端添加结点"""
+        node = self.Node(elem)
+        if not self.__is_fill() :
+            if self.__is_empty() :
+                return self.__edit(elem)
+            self.__tail.next = node
+            node.prev = self.__tail
+            self.__tail = node
+            self.__count += 1
+    def ldequene(self):
+        """从队列的左端抛出结点"""
+        if not self.__is_empty() :
+            res = self.__head.elem
+            self.__head = self.__head.next
+            self.__count -= 1
+            return res
+    def rdequene(self):
+        """从队列的右端抛出结点"""
+        res = self.__tail.elem
+        self.__tail = self.__tail.prev
+        self.__count -= 1
+        return res
+    def ltop(self):
+        """返回队列左端端口元素，但不删除"""
+        return self.__head.elem
+    def rtop(self):
+        """返回队列右端端口的元素，但不删除"""
+        return self.__tail.elem
+
