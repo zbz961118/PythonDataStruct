@@ -1,0 +1,52 @@
+class Quene :
+    """单向链表链式队列"""
+    class  Node :
+        """保存队列的结点"""
+        def __init__(self,elem,next =None):
+            """
+            :param elem:结点元素域
+            :param next: 结点指针域
+            """
+            self.elem = elem
+            self.next = next
+    def __init__(self,__head = None,__tail = None):
+        """
+        :param __head:队列的头指针 ，始终指向队列的队顶元素
+        :param __tail: 队列的尾指针，始终指向队列的队尾元素
+        :param __size :队列的容量
+        :param __count :记录队列的元素量,，需要手动维护
+        """
+        self.__head = __head
+        self.__tail = __tail
+        self.__size = 10
+        self.__count = 0
+    def __is_empty(self):
+        """判断队列是否为空"""
+        return self.__count == 0
+    def __is_fill(self):
+        """判断队列是否满"""
+        return self.__count == self.__size
+    def enquene(self,elem):
+        """元素入队"""
+        node = self.Node(elem)
+        if not self.__is_fill() :
+            node.next = None
+            if self.__is_empty() :
+                self.__head = node
+            else :
+                self.__tail.next = node
+            self.__tail = node
+            self.__count += 1
+        else :
+            pass
+    def dequene(self):
+        """元素出队"""
+        if not self.__is_empty() :
+            res = self.__head.elem
+            self.__head = self.__head.next
+            self.__count -= 1
+            return res
+    def top(self):
+        """抛出对头元素，但不删除"""
+        if not self.__is_empty() :
+            return  self.__head.elem
