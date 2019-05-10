@@ -1,0 +1,24 @@
+class Stack :
+    def __init__(self):
+        self.__top = 1
+        self.__res = -1
+        self.__size = 10
+        self.stack = [ ] * self.__size
+    def __is_empty(self):
+        return self.__top == self.__res
+    def __is_fill(self):
+        return (self.__top - self.__res ) == self._size
+    def push(self,elem):
+        """元素入栈"""
+        if not self.__is_fill() :
+            self.__top += 1
+            self.stack[self.__top] = elem
+    def pop(self):
+        """元素出栈"""
+        if not self.__is_empty() :
+            self.__res += 1
+            return self.stack[self.__top]
+
+    def top(self):
+        """返回栈顶元素，不删除"""
+        return self.stack[self.__res]
